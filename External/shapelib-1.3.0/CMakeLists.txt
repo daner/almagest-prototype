@@ -1,14 +1,16 @@
 project(Shapelib C)
 
+option(SHAPELIB_BUILD_LIB "Build shapelib library" ON)
 option(SHAPELIB_BUILD_TOOLS "Build shapelib tools" OFF)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /nologo /Ox /MD /DSHAPELIB_DLLEXPORT /D_CRT_SECURE_NO_WARNINGS /wd4267 /wd4018")
-
 set(SHAPELIB_HEADERS shapefil.h)	
 set(SHAPELIB_SOURCES shpopen.c shptree.c dbfopen.c safileio.c)
 
-add_library(shapelib STATIC ${SHAPELIB_SOURCES} ${SHAPELIB_HEADERS})
-set_target_properties(shapelib PROPERTIES FOLDER "External")
+if(SHAPELIB_BUILD_LIB) 
+	add_library(shapelib STATIC ${SHAPELIB_SOURCES} ${SHAPELIB_HEADERS})
+	set_target_properties(shapelib PROPERTIES FOLDER "External")
+endif()
 
 if(SHAPELIB_BUILD_TOOLS)
 	add_executable(shpcreate shpcreate.c)

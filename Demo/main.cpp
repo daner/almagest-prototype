@@ -1,7 +1,14 @@
 #include <iostream>
+#include <memory>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
+#include "Application.h"
+
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) 
+{
+	static_cast<Application*>(glfwGetWindowUserPointer(window))->KeyCallback(window, key, scancode, action, mods);
+}
 
 int main(int arc, char* argv[])
 {
@@ -26,12 +33,17 @@ int main(int arc, char* argv[])
 		return EXIT_FAILURE;
 	}
 	
+	auto app = std::make_shared<Application>();
+
+	glfwSetWindowUserPointer(window, app.get());
+	glfwSetKeyCallback(window, &keyCallback);
+
+	app->Init();
+
 
 	while (!glfwWindowShouldClose(window))
 	{
-		//TODO: Render here
-
-
+		app->Render();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -39,3 +51,4 @@ int main(int arc, char* argv[])
 	glfwTerminate();
 	return EXIT_SUCCESS;
 } 
+

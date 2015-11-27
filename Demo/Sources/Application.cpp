@@ -8,11 +8,13 @@ Application::Application()
 
 void Application::Init()
 {
-	std::cout << Filesystem::GetFileContent(Filesystem::GetPath("Resources/Shaders/minimal.frag")) << std::endl;
+	std::cout << Filesystem::GetFileContents(Filesystem::GetPath("Resources/Shaders/minimal.vert")) << std::endl;
+	std::cout << Filesystem::GetFileContents(Filesystem::GetPath("Resources/Shaders/minimal.frag")) << std::endl;
 }
 
 void Application::Render()
 {
+
 }
 
 void Application::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

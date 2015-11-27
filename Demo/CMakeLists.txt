@@ -24,4 +24,6 @@ add_definitions(-D__WIN32__)
 
 add_executable(demo ${DEMO_SOURCES} ${DEMO_HEADERS} ${VERTEX_SHADERS} ${FRAGMENT_SHADERS})
 
+add_custom_target(COPY ALL COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources $<TARGET_FILE_DIR:demo>/Resources)
+
 target_link_libraries(demo glfw glew ${OpenCV_LIBS})

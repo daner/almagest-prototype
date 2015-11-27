@@ -12,13 +12,16 @@ std::string Filesystem::GetPath(const std::string& fileName)
 	return std::string(begin(dir), end(dir)) + fileName;
 }
 
-std::string Filesystem::GetFileContent(const std::string& fileName)
+std::string Filesystem::GetFileContents(const std::string& fileName)
 {
 		std::string result;
-		std::ifstream file(fileName.c_str());	
-		file.seekg(0, std::ios::end);
-		result.resize(file.tellg());
-		file.seekg(0, std::ios::beg);
-		result.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+		std::fstream file(fileName.c_str(), std::ios::in);
+		if(file.is_open())
+		{
+ 			file.seekg(0, std::ios::end);
+			result.resize(file.tellg());
+			file.seekg(0, std::ios::beg);
+			result.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+		}
 		return result;	
 }

@@ -3,25 +3,27 @@
 #include <fstream>
 #include "Filesystem.h"
 
-std::string Filesystem::GetPath(const std::string& fileName)
+using namespace std;
+
+string Filesystem::GetPath(const string& fileName)
 {
 	WCHAR path[MAX_PATH];
 	GetModuleFileNameW(nullptr, path, MAX_PATH);
-	std::wstring wpath(path);
+	wstring wpath(path);
 	auto dir = wpath.substr(0, wpath.find_last_of('\\') + 1);
-	return std::string(begin(dir), end(dir)) + fileName;
+	return string(begin(dir), end(dir)) + fileName;
 }
 
-std::string Filesystem::GetFileContents(const std::string& fileName)
+string Filesystem::GetFileContents(const string& fileName)
 {
-		std::string result;
-		std::fstream file(fileName.c_str(), std::ios::in);
+		string result;
+		fstream file(fileName.c_str(), ios::in);
 		if(file.is_open())
 		{
- 			file.seekg(0, std::ios::end);
+ 			file.seekg(0, ios::end);
 			result.resize(file.tellg());
-			file.seekg(0, std::ios::beg);
-			result.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+			file.seekg(0, ios::beg);
+			result.assign(istreambuf_iterator<char>(file), istreambuf_iterator<char>());
 		}
 		return result;	
 }

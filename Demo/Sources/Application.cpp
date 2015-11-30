@@ -1,5 +1,5 @@
-#include "Application.h"
 #include <iostream>
+#include "Application.h"
 #include "Filesystem.h"
 
 Application::Application()

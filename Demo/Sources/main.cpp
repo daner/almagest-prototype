@@ -33,7 +33,7 @@ int main(int arc, char* argv[])
 		return EXIT_FAILURE;
 	}
 	
-	auto app = std::make_shared<Application>();
+	auto app = std::make_unique<Application>();
 
 	glfwSetWindowUserPointer(window, app.get());
 	glfwSetKeyCallback(window, &keyCallback);
